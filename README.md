@@ -33,7 +33,7 @@ pip install git+https://github.com/asomoza/image_gen_aux.git
     pip install -r requirements.txt
     ```
 
-4. Manually download the SpatialTracker checkpoint to `checkpoints/`, from [Google Drive](https://drive.google.com/drive/folders/1UtzUJLPhJdUg2XvemXXz1oe6KUQKVjsZ).  Official checkpoint can be found at: https://huggingface.co/EXCAI/Diffusion-As-Shader
+4. Manually download the SpatialTracker checkpoint to `checkpoints/`, from [Google Drive](https://drive.google.com/drive/folders/1UtzUJLPhJdUg2XvemXXz1oe6KUQKVjsZ). And our official checkpoint can be found at: https://huggingface.co/EXCAI/Diffusion-As-Shader
 
 <!-- 5. Manually download the ZoeDepth checkpoints (dpt_beit_large_384.pt, ZoeD_M12_K.pt, ZoeD_M12_NK.pt) to `models/monoD/zoeDepth/ckpts/`. For more information, refer to [this issue](https://github.com/henry123-boy/SpaTracker/issues/20). -->
 
