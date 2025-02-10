@@ -55,8 +55,9 @@ The inference code was tested on
 - PyTorch 2.5.1
 - 1 NVIDIA H800 with CUDA version 11.8. (32GB GPU memory is sufficient for generating videos with our code.)
 
-We provide a inference script for our tasks. You can run the `demo.py` script directly as follows.
+**We provide a validation dataset in [Google Drive](https://drive.google.com/file/d/19PfXsChAVTM9y6Zj8x5a6aix247wOyk0/view?usp=sharing) for our tasks. You can run the `scripts/evaluate_DaS.sh` to evaluate the performance of our model.**
 
+We also provide a inference script for our tasks. You can run the `demo.py` script directly as follows.
 
 #### 1. Motion Transfer 
 ```python

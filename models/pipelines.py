@@ -707,7 +707,6 @@ class CameraMotionGenerator:
 
     def _look_at(self, camera_position, target_position):
         # look at direction
-        # import ipdb;ipdb.set_trace()
         direction = target_position - camera_position
         direction /= np.linalg.norm(direction)
         # calculate rotation matrix
@@ -894,29 +893,21 @@ class ObjectMotionGenerator:
         pred_tracks = pred_tracks.to(self.device).float()
         
         if tracking_method == "moge":
-
-            H = pred_tracks.shape[0]
-            W = pred_tracks.shape[1]
+            T, H, W, _ = pred_tracks.shape
             
-            initial_points = pred_tracks  # [H, W, 3]
             selected_mask = motion_dict['mask']
-            valid_selected = ~torch.any(torch.isnan(initial_points), dim=2) & selected_mask
+            valid_selected = ~torch.any(torch.isnan(pred_tracks[0]), dim=2) & selected_mask
             valid_selected = valid_selected.reshape([-1])
-            modified_tracks = pred_tracks.clone().reshape(-1, 3).unsqueeze(0).repeat(self.num_frames, 1, 1)
-            # import ipdb;ipdb.set_trace()
+            modified_tracks = pred_tracks.clone().reshape(T, -1, 3)
+
             for frame_idx in range(self.num_frames):
-                # Get current frame motion
                 motion_mat = motion_dict['motions'][frame_idx]
-                # Moge's pointcloud is scale-invairant
                 motion_mat[0, 3] /= W
                 motion_mat[1, 3] /= H
-                # Apply motion to selected points
                 points = modified_tracks[frame_idx, valid_selected]
-                # Convert to homogeneous coordinates
                 points_homo = torch.cat([points, torch.ones_like(points[:, :1])], dim=1)
-                # Apply transformation
+
                 transformed_points = torch.matmul(points_homo, motion_mat.T)
-                # Convert back to 3D coordinates
                 modified_tracks[frame_idx, valid_selected] = transformed_points[:, :3]
             return modified_tracks
             
