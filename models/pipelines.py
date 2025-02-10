@@ -282,6 +282,10 @@ class DiffusionAsShaderPipeline:
                 print(f"Warning: Failed to save tracking video: {e}")
                 tracking_path = None
         
+        # Convert tracking_video back to tensor in range [0,1]
+        tracking_frames = np.array(list(clip.iter_frames())) / 255.0
+        tracking_video = torch.from_numpy(tracking_frames).permute(0, 3, 1, 2).float()
+        
         return tracking_path, tracking_video
     
     ##============= MoGe =============##
