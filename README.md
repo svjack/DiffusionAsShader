@@ -4,6 +4,48 @@
 
 ![teaser](assets/teaser.gif)
 
+```bash
+sudo apt-get update && sudo apt-get install git-lfs ffmpeg cbm
+
+conda create --name das python=3.10
+conda activate das
+pip install ipykernel
+python -m ipykernel install --user --name das --display-name "das"
+
+pip install torch==2.5.1 torchvision
+
+git clone https://github.com/svjack/DiffusionAsShader && cd DiffusionAsShader
+
+#### https://github.com/IGL-HKUST/DiffusionAsShader/issues/7
+#### git submodule update --init --recursive
+#### submodules/MoGe/requirements.txt
+
+mkdir -p submodules && cd submodules
+git clone https://github.com/microsoft/MoGe
+
+cd ..
+ls submodules/MoGe/requirements.txt
+pip install -r requirements.txt
+
+git clone https://huggingface.co/EXCAI/Diffusion-As-Shader
+git clone https://huggingface.co/svjack/DiffusionAsShader_models
+
+#### unzip examples into this dir
+unzip DiffusionAsShader_models/examples-20250211T140438Z-001.zip
+```
+
+```python
+python demo.py \
+    --input_path boat.png \
+    --checkpoint_path Diffusion-As-Shader \
+    --prompt "This is a serene landscape featuring a calm body of water with a small boat in the foreground. In the background, there is a lush green island with some buildings on it. The sky is clear with a few clouds, and the overall scene appears peaceful and picturesque. This could be a lake or a coastal area, possibly in a region known for its natural beauty." \
+    --output_dir camctrl_output/boat \
+    --gpu 1 \
+    --camera_motion trans \
+    --tracking_method moge \
+    --gpu 0
+```
+
 ## Quickstart
 
 ### Create environment
