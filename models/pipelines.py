@@ -379,8 +379,8 @@ class DiffusionAsShaderPipeline:
         colors[:, :, 2] = (normalized_z * 255).astype(np.uint8)
         colors = colors.astype(np.uint8)
 
-        colors = colors[mask]
-        points = points * mask[None, :, :, None]
+        # colors = colors[mask]
+        # points = points * mask[None, :, :, None]
         
         points = points.reshape(T, -1, 3)
         colors = colors.reshape(-1, 3)
